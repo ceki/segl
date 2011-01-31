@@ -29,6 +29,7 @@ object ImperativeEuler7 {
     throw new IllegalStateException("failed to determine primality of [" + n + "]" + primes)
   }
 
+  // runs in about 2.8 seconds
   def main(args: Array[String]) = {
     initPrimeList
     assert (104743== primes.last)

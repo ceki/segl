@@ -25,7 +25,6 @@ object OptimizedEuler7 {
     primeCandidateStream.filter(isPrime).take(10001).last
   }
 
- def  main(args: Array[String]) = {
-    assert(104743 == compute10001thPrime)
-  }
+  // runs in 111 milliseconds
+ def  main(args: Array[String]) = { assert(104743 == compute10001thPrime) }
 }

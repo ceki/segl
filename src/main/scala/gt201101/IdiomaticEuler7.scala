@@ -16,5 +16,6 @@ object IdiomaticEuler7 {
   }
 
 
- def  main(args: Array[String]) = { assert (104743 == compute10001thPrime)  }
+  // runs in about 18 seconds
+ def  main(args: Array[String]) = { assert (104743 == compute10001thPrime) }
 }
