@@ -6,10 +6,7 @@ package gt201101
 import collection.mutable.ListBuffer
      
 object ImperativeEuler7 {
-
-  val primes = new ListBuffer[Int]()
-  primes += 2
-
+  var primes = List(2)
   val limit = 10001;
 
   def initPrimeList() = {
@@ -29,9 +26,12 @@ object ImperativeEuler7 {
     throw new IllegalStateException("failed to determine primality of [" + n + "]" + primes)
   }
 
-  // runs in about 2.8 seconds
+  // runs in about 1.2 seconds
   def main(args: Array[String]) = {
+     val s = System.currentTimeMillis
     initPrimeList
     assert (104743== primes.last)
+    println(""+(System.currentTimeMillis-s))
+
   }
 }
