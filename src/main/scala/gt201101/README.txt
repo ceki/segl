@@ -20,7 +20,7 @@ which is rather remarkable in light of the differences in style.
 
 The slowness of ImplerativeEuler7.scala, completing in 1.2seconds, is rather
 surprising and still baffles me. An earlier version which used a mutable
-ListBuffer was  even slower and even more baffling.
+ListBuffer was  even slower and just as baffling.
 
 
 [1] http://en.wikipedia.org/wiki/Prime_number_theorem
