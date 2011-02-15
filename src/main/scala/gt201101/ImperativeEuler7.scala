@@ -1,12 +1,13 @@
 package gt201101
 
+import collection.mutable.ListBuffer
+
 /**
  * @author Ceki G&uuml;c&uuml;
 */
-import collection.mutable.ListBuffer
      
 object ImperativeEuler7 {
-  var primes = List(2)
+  val primes :ListBuffer[Int] = ListBuffer(2)
   val limit = 10001;
 
   def initPrimeList() = {
@@ -31,7 +32,7 @@ object ImperativeEuler7 {
      val s = System.currentTimeMillis
     initPrimeList
     assert (104743== primes.last)
-    println(""+(System.currentTimeMillis-s))
+    println("exect time "+(System.currentTimeMillis-s) + " in ms")
 
   }
 }
