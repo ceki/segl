@@ -7,7 +7,7 @@ package gt201101
 object OptimizedEuler7 {
 
   def ceilSqrt(n: Int): Int = {
-    var sqrtN: Int = Math.sqrt(n)
+    var sqrtN: Int = math.sqrt(n).toInt
     while(sqrtN*sqrtN <= n) sqrtN += 2
     sqrtN
   }
