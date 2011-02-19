@@ -1,12 +1,15 @@
 package gt201102
 
+import collection.mutable.ListBuffer
+
 /**
  * @author Ceki G&uuml;c&uuml;
  */
 
-object Ceki_Euler11_V1 {
+object Ceki_Euler11_V2 {
 
   type Dim2IntArray = Array[Array[Int]]
+  type Coord2 = Tuple2[Int, Int]
 
   val grid = """08 02 22 97 38 15 00 40 00 75 04 05 07 78 52 12 50 77 91 08
 49 49 99 40 17 81 18 57 60 87 17 40 98 43 69 48 04 56 62 00
@@ -52,44 +55,51 @@ object Ceki_Euler11_V1 {
     return verticalLines.toArray
   }
 
-  def asDownwardDiagonalLines(gridAsArray: Dim2IntArray): Dim2IntArray = {
-    val size = gridAsArray.length;
-    val downwardDiagonalLines = for (offset <- -(size - 1) until size) yield {
-      if (offset < 0) {
-        val intArray = new Array[Int](size + offset)
-        for (i <- 0 until (size + offset)) {
-          intArray(i) = gridAsArray(i)(i - offset)
-        }
-        intArray
-      } else {
-        val intArray = new Array[Int](size - offset)
-        for (i <- 0 until (size - offset)) {
-          intArray(i) = gridAsArray(offset + i)(i)
-        }
-        intArray
-      }
-    }
-    return downwardDiagonalLines.toArray
+  def leftEdgeCoordinates(height: Int): List[Coord2] = {
+    var r = for (i <- 0 until height) yield (i, 0)
+    r.toList
   }
 
-  def asUpwardDiagonalLines(gridAsArray: Dim2IntArray): Dim2IntArray = {
-    val size = gridAsArray.length;
-    val upwardDiagonalLines = for (offset <- -(size - 1) until size) yield {
-      if (offset < 0) {
-        val intArray = new Array[Int](size + offset)
-        for (i <- 0 until (size + offset)) {
-          intArray(i) = gridAsArray(size - 1 - i + offset)(i)
+  def topEdgeCoordinates(width: Int): List[Coord2] = {
+    var r = for (j <- 0 until width) yield (0, j)
+    r.toList
+  }
+
+  def nextDownDiagonalCoordinates(size: Int, coord: Coord2): Coord2 = {
+    val last = size -1;
+    if (coord._1 >= last || coord._2 >= last) return null;
+    else return (coord._1 + 1, coord._2 + 1);
+  }
+
+  def nextUpDiagonalCoordinates(size: Int, coord: Coord2): Coord2 = {
+    val last = size -1;
+    if (coord._1 >= last || coord._2 >= last) return null;
+    else return (coord._1 + 1, coord._2 - 1);
+  }
+
+  def asDiagonalLines(gridAsArray: Dim2IntArray, nextCoord: (Int, Coord2) => Coord2): Dim2IntArray = {
+    val size = gridAsArray.length
+    val edges = leftEdgeCoordinates(size) ::: topEdgeCoordinates(size)
+    val r = edges.map {
+      coord =>
+        val diagonalLine = ListBuffer[Int]()
+        var p = coord;
+        while (p != null) {
+          diagonalLine += gridAsArray(p._1)(p._2)
+          p = nextCoord(size, p)
+          println(p)
         }
-        intArray
-      } else {
-        val intArray = new Array[Int](size - offset)
-        for (i <- 0 until (size - offset)) {
-          intArray(i) = gridAsArray(size - 1 - offset - i)(i)
-        }
-        intArray
-      }
+        diagonalLine.toArray
     }
-    return upwardDiagonalLines.toArray
+    r.toArray
+  }
+
+  def asUpwardDiagonalLines2(gridAsArray: Dim2IntArray): Dim2IntArray = {
+    asDiagonalLines(gridAsArray, nextUpDiagonalCoordinates)
+  }
+
+  def asDownwardDiagonalLines2(gridAsArray: Dim2IntArray): Dim2IntArray = {
+    asDiagonalLines(gridAsArray, nextDownDiagonalCoordinates)
   }
 
   def maxOfFourByFourMultiplicaiton(line: Array[Int]): Int = {
@@ -111,12 +121,13 @@ object Ceki_Euler11_V1 {
     val height = dim2IntArray.length;
     val width = height
     val verticalLines = asVerticalLines(dim2IntArray)
-    val downwardDiagonalLines = asDownwardDiagonalLines(dim2IntArray).filter(_.length >= 4)
-    val upwardDiagonalLines = asUpwardDiagonalLines(dim2IntArray).filter(_.length >= 4)
+    val downwardDiagonalLines = asDownwardDiagonalLines2(dim2IntArray).filter(_.length >= 4)
+    val upwardDiagonalLines = asUpwardDiagonalLines2(dim2IntArray).filter(_.length >= 4)
 
     val listOfMax = findMax(dim2IntArray) :: findMax(verticalLines) ::
             findMax(downwardDiagonalLines) :: findMax(upwardDiagonalLines) :: Nil
 
+    dim2IntArray.reverse
     assert(70600674 == listOfMax.max)
     println("Solved Euler 11")
   }
