@@ -27,7 +27,7 @@ object ImperativeEuler7 {
     throw new IllegalStateException("failed to determine primality of [" + n + "]" + primes)
   }
 
-  // runs in about 1.2 seconds
+  // runs in about 55 milliseconds
   def main(args: Array[String]) = {
      val s = System.currentTimeMillis
     initPrimeList
