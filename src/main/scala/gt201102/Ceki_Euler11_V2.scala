@@ -73,6 +73,7 @@ object Ceki_Euler11_V2 {
 
   def nextUpDiagonalCoordinates(size: Int, coord: Coord2): Coord2 = {
     val last = size -1;
+    if (coord._2 == 0) return null;
     if (coord._1 >= last || coord._2 >= last) return null;
     else return (coord._1 + 1, coord._2 - 1);
   }
@@ -87,18 +88,17 @@ object Ceki_Euler11_V2 {
         while (p != null) {
           diagonalLine += gridAsArray(p._1)(p._2)
           p = nextCoord(size, p)
-          println(p)
         }
         diagonalLine.toArray
     }
     r.toArray
   }
 
-  def asUpwardDiagonalLines2(gridAsArray: Dim2IntArray): Dim2IntArray = {
+  def asUpwardDiagonalLines(gridAsArray: Dim2IntArray): Dim2IntArray = {
     asDiagonalLines(gridAsArray, nextUpDiagonalCoordinates)
   }
 
-  def asDownwardDiagonalLines2(gridAsArray: Dim2IntArray): Dim2IntArray = {
+  def asDownwardDiagonalLines(gridAsArray: Dim2IntArray): Dim2IntArray = {
     asDiagonalLines(gridAsArray, nextDownDiagonalCoordinates)
   }
 
@@ -118,16 +118,13 @@ object Ceki_Euler11_V2 {
 
   def main(args: Array[String]) = {
     val dim2IntArray = toArray(grid)
-    val height = dim2IntArray.length;
-    val width = height
     val verticalLines = asVerticalLines(dim2IntArray)
-    val downwardDiagonalLines = asDownwardDiagonalLines2(dim2IntArray).filter(_.length >= 4)
-    val upwardDiagonalLines = asUpwardDiagonalLines2(dim2IntArray).filter(_.length >= 4)
+    val downwardDiagonalLines = asDownwardDiagonalLines(dim2IntArray).filter(_.length >= 4)
+    val upwardDiagonalLines = asUpwardDiagonalLines(dim2IntArray).filter(_.length >= 4)
 
     val listOfMax = findMax(dim2IntArray) :: findMax(verticalLines) ::
             findMax(downwardDiagonalLines) :: findMax(upwardDiagonalLines) :: Nil
 
-    dim2IntArray.reverse
     assert(70600674 == listOfMax.max)
     println("Solved Euler 11")
   }
