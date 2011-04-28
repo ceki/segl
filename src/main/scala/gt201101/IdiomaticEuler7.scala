@@ -12,7 +12,12 @@ object IdiomaticEuler7 {
   val primeCandidateStream: Stream[Int] = Stream.cons(2, next(3))
 
   def compute10001thPrime(): Int = {
-    primeCandidateStream.filter(isPrime).take(10001).last
+    val nonFiltered = primeCandidateStream.filter(a => {println(a);true})
+    println("last="+nonFiltered.take(10001).last)
+
+    val filteredStream = primeCandidateStream.filter((i:Int) => {println(i);isPrime(i)})
+    println("filtered")
+    filteredStream.take(10001).last
   }
 
 
