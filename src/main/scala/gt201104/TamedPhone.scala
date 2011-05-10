@@ -14,14 +14,3 @@ class TamedPhone(val underlying: Phone) extends Tamed[Phone] {
 object TamedPhone {
   implicit def convertDown(t: TamedPhone): Phone = t.underlying
 }
-
-object x {
-
-  val p = new Phone
-  val tamed = new TamedPhone(p)
-
-  val other: Phone = tamed
-
-
-
-}
