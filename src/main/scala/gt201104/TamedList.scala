@@ -1,4 +1,4 @@
-package gt201104;
+package gt201104
 
 import java.util.{List => JList}
 
@@ -42,7 +42,7 @@ class TamedList[U <: AnyRef, T <: Tamed[_]](val underlyingList: JList[U])(implic
 }
 
 object TamedList {
-  implicit def convertDown(t: TamedList) = t.underlyingList
+//  implicit def convertDown(t: TamedList) = t.underlyingList
 }
 
 
