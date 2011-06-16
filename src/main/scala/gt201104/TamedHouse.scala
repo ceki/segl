@@ -1,4 +1,4 @@
-package gt201104
+package gt201104;
 
 class TamedHouse(val underlying: House) extends Tamed[House] {
 
@@ -7,13 +7,10 @@ class TamedHouse(val underlying: House) extends Tamed[House] {
 //    val o = underlying.getOwner
 //    if(o == null) null else Tamed
 //  }
-//  private Person owner;
-//  private Color color;
-//  private Address address;
-//
-//  def phoneList: TamedList[Phone, TamedPhone] = {
-//    new TamedList[Phone, TamedPhone](underlying.getPhones)
-//  }
+
+  def phoneList: TamedList[Phone, TamedPhone] = {
+    new TamedList[Phone, TamedPhone](underlying.getPhones)
+  }
 }
 
 object TamedHouse {
@@ -21,8 +18,8 @@ object TamedHouse {
 }
 
 //class TamedApartment(val underlying: Apartment) extends TamedHouse(underlying) {
-//}
-
+////}
+//
 //object TamedApartment {
 //  implicit def convertDown(t: TamedApartment) = t.underlying
 //}

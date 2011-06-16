@@ -41,3 +41,7 @@ holds for some of the elements of the list.
 
 This exercise was inspired from a real-world problem where a class hierarchy
 consisting of 50+ classes needed to be decorated with new functionality.
+
+New Function 3)
+===============
+
