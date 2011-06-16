@@ -26,12 +26,10 @@ class TamedList[U <: AnyRef, T <: Tamed[_]](val underlyingList: JList[U])(implic
   def size: Int = underlyingList.size
 
   def asScalaList(): List[T] = {
-    import scala.collection.JavaConversions.JListWrapper
-    val scalaBuffer = new JListWrapper[U](underlyingList)
-    val scalaArray = scalaBuffer.toArray
-    val scalaList: List[T] = List.fromArray(scalaArray).map {
+    import scala.collection.JavaConversions.asScalaBuffer
+    val scalaList = underlyingList.map{
       u => rawToTamed(u)
-    }
+    }.toList
     scalaList
   }
 
@@ -41,9 +39,16 @@ class TamedList[U <: AnyRef, T <: Tamed[_]](val underlyingList: JList[U])(implic
   }
 }
 
-object TamedList {
-  implicit def convertDown(t: TamedList) = t.underlyingList
+object Ex extends Application {
+
+  val c = new java.util.ArrayList[City]()
+  val l = new TamedList[City, TamedCity](c)
+
+
 }
+//object TamedList {
+//  implicit def convertDown(t: TamedList) = t.underlyingList
+//}
 
 
 
